@@ -92,6 +92,7 @@
     font-weight: bold;
     height: 58px;
     flex: 1 1 0%;
+    font-size: 14px;
     /* margin-right: 6px; */
     /* display: flex; */
     /* align-items: center; */
@@ -120,7 +121,7 @@
 }
 
 .w-kb-backspace {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .w-reset-btn {
