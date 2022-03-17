@@ -166,6 +166,37 @@ const Wordle = () => {
             }
         }
     }
+    /*
+        Return Example:
+        {
+            l: 2,
+            e: 2,
+            v: 1
+        }
+    */
+    const getLetterCount = (word, c) => {
+        let backupColors = {}
+        for (let i = 0; i < word.length; i++) {
+            backupColors[i] = 1;
+        }
+        let colors = c || backupColors;
+        let letters = [];
+        for (const char of word) {
+            if (!letters.includes(char)) {
+                letters.push(char)
+            }
+        }
+        let count = {};
+        letters.forEach(letter => {
+            count[letter] = 0;
+            for (let i = 0; i < word.length; i++) {
+                if (word.charAt(i) === letter && colors[i] > 0) {
+                    count[letter] += 1;
+                }
+            }
+        })
+        return count;
+    }
 
     const createSets = () => {
         let sets = {
@@ -192,10 +223,12 @@ const Wordle = () => {
                 },
             },
             has: '',
-            not: ''
+            not: '',
+            only: {}
         };
         
         for (let i = 0; i < grid.index.i; i++) {
+            let word = '';
             for (let j = 0; j < 5; j++) {
                 let letter = grid.letters[i][j];
                 let color = grid.colors[i][j];
@@ -210,16 +243,49 @@ const Wordle = () => {
                     sets.cols[j].is = letter;
                 }
                 if (color > 0 && !sets.has.includes(letter)) {
-                // if tile is yellow or green, add to 'has' if it doesn't already have letter
+                // if tile is yellow or green, add to 'has' if 'has' doesn't already have the letter
                     sets.has += letter;
+                    // remove from 'not' if already there
+                    if (sets.not.includes(letter)) {
+                        sets.not = sets.not.replace(new RegExp(letter, 'gi'), '');
+                    }
                 }
-                if (color === 0 && !sets.not.includes(letter)) {
-                // if tile is gray, add to 'not' if it doesn't already have letter
+                if (color === 0 && !sets.not.includes(letter) && !sets.has.includes(letter)) {
+                // if tile is gray, add to 'not' if 'not' doesn't already have letter and 
+                // 'has' doesn't have letter
                     sets.not += letter;
+                }
+                // add current letter to current word;
+                word += letter;
+            }
+            // handle duplicates
+            // get letter count for each entered word
+            const lCount = getLetterCount(word, grid.colors[i]);
+            // loop through letters in letter count
+            Object.keys(lCount).forEach(letter => {
+                // number of letter in word
+                let wordCount = lCount[letter];
+                if (wordCount > 1) {
+                    // get number of this letter in the 'has' set
+                    let setCount = getLetterCount(sets.has)[letter];
+                    // add the quantity difference between wordCount and setCount to sets.has
+                    for (let j = 0; j < wordCount - setCount; j++) {
+                        sets.has += letter;
+                    }
+                }
+            })
+            // handle when a duplicate letter is gray
+            const countNoColors = getLetterCount(word);
+            const countWithColors = getLetterCount(word, grid.colors[i]);
+            console.log(word + " counts", countNoColors, countWithColors)
+            for (const letter of Object.keys(countNoColors)) {
+                if ((countNoColors[letter] > countWithColors[letter] || countWithColors[letter] === undefined) && countWithColors[letter] > 0) {
+                    // then we know there's a finite number of letter
+                    sets.only[letter] = countWithColors[letter];
                 }
             }
         }
-        
+        console.log('sets', sets)
         return sets;
     }
 
@@ -252,16 +318,26 @@ const Wordle = () => {
                 }
             }
             // loop through characters word must have
-            for (let i = 0; i < sets.has.length; i++) {
-                if (!word.includes(sets.has.charAt(i))) {
-                    // console.log("word in the has list that isn't in the word")
+            let setCount = getLetterCount(sets.has);
+            for (const letter of Object.keys(setCount)) {
+                let wordCount = getLetterCount(word);
+                // if word has less of the letter than sets.has or has none of that letter at all, then no good
+                if (wordCount[letter] < setCount[letter] || wordCount[letter] === undefined) {
                     works = false;
                     break;
                 }
             }
             // loop through characters word can't have anywhere
-            for (let i = 0; i < sets.not.length; i++) {
-                if (word.includes(sets.not.charAt(i))) {
+            for (const letter of sets.not) {
+                if (word.includes(letter)) {
+                    works = false;
+                    break;
+                }
+            }
+            // loop through characters we know word has a finite number of
+            for (const letter of Object.keys(sets.only)) {
+                let wordCount = getLetterCount(word);
+                if (sets.only[letter] !== wordCount[letter]) {
                     works = false;
                     break;
                 }
