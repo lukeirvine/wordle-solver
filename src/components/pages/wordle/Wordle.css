@@ -68,7 +68,7 @@
 
 .w-kb {
     /* width: 500px; */
-    width: 100vw;
+    width: 320px;
     padding: 10px;
     padding-top: 0px;
 }
@@ -162,15 +162,15 @@
 
 
 @media only screen and (min-width: 767px) {
+    .w-reset-btn {
+        width: 150px;
+    }
 }
 
 
 @media only screen and (min-width: 992px) {
     .w-content {
         width: 500px;
-    }
-    .w-reset-btn {
-        width: 150px;
     }
 }
 
