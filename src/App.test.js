@@ -1,8 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitForElementToBeRemoved } from './test-utils';
+import React from 'react';
 import App from './App';
 
-test('renders learn react link', () => {
+it('renders without crashing', async () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+  await screen.findByRole('heading', {name: /wordle solver/i})
 });

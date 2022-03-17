@@ -366,9 +366,10 @@ const Wordle = () => {
                             <span className="w-down-below-text"> down below</span>.
                         </p>
                         <div className="w-grid">
-                            {Object.values(grid.letters).map((row, i) => (
-                                <>{Object.values(row).map((tile, j) => (
+                            {Object.values(grid.letters).map((row, i) => {
+                                return Object.values(row).map((tile, j) => (
                                     <div
+                                        key={j}
                                         className="w-tile"
                                         style={{
                                             backgroundColor: grid.letters[i][j] === '' ? 'white' : tileColors[grid.colors[i][j]],
@@ -380,15 +381,16 @@ const Wordle = () => {
                                             className="w-tile-letter"
                                         >{capitalize(tile)}</div>
                                     </div>
-                                ))}</>
-                            ))}
+                                ))
+                            })}
                         </div>
                     </div>
                     <div className="w-kb">
-                        {keyboard.map(row => (
-                            <div className="w-kb-row">
-                                {row.map(letter => (
+                        {keyboard.map((row, i) => (
+                            <div key={i} className="w-kb-row">
+                                {row.map((letter, j) => (
                                     <button 
+                                        key={j}
                                         id={/^\w+$/.test(letter) ? 'key-' + letter : 'key-backspace'}
                                         type={letter === 'enter' ? 'submit' : 'button'}
                                         disabled={letter === 'enter' && !valid}
