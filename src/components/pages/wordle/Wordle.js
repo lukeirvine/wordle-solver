@@ -286,8 +286,8 @@ const Wordle = () => {
                         <h2 className='w-subtitle'>Entry</h2>
                         <p className="w-entry-directions">
                             Directions: Enter the words you tried on Wordle, click the tiles repeatedly to 
-                            turn them yellow or green, and then click enter to see possible next words down 
-                            below.
+                            turn them yellow or green, and then click enter to see possible next words 
+                            <span className="w-down-below-text"> down below</span>.
                         </p>
                         <div className="w-grid">
                             {Object.values(grid.letters).map((row, i) => (

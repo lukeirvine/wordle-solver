@@ -71,7 +71,6 @@
     /* width: 320px; */
     width: 100%;
     padding-top: 0px;
-    background-color: pink;
 }
 
 .w-kb-row {
@@ -79,7 +78,6 @@
     /* width: 320px; */
     margin-bottom: 8px;
     gap: 6px;
-    background-color: yellow;
 }
 
 .w-kb-row button {
@@ -114,7 +112,7 @@
 
 .w-kb-spacer {
     flex: 1 1 0%;
-    background-color: rgba(0, 174, 255, 0.979);
+    background-color: rgba(0, 174, 255, 0);
     padding: 0px;
     margin: 0px;
 }
@@ -200,5 +198,9 @@
 
     .w-grid-form {
         transition: all 1s ease-in-out;
+    }
+
+    .w-down-below-text {
+        display: none;
     }
 }
