@@ -15,8 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     steps:
-      - name: Install Dependencies
-        run: npm install
-      - name: Run Deploy Script
-        run: npm run deploy
-        # ...deployment-specific steps
+    - uses: actions/checkout@v2
+    - name: Use Node.js 14.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - name: Install Dependencies
+      run: npm install
+    - name: Run Deploy Script
+      run: npm run deploy
+      # ...deployment-specific steps
