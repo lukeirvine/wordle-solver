@@ -1,0 +1,37 @@
+.navbar-profile-name {
+    padding: 10px;
+}
+
+.nav-icon {
+    margin-right: 2px;
+}
+
+.brand-link {
+    color: black;
+}
+
+.brand-link:hover {
+    color: black;
+    text-decoration: none;
+}
+
+/* Screen size specs */
+
+@media only screen and (max-width: 576px) {
+}
+
+
+@media only screen and (min-width: 576px) {
+}
+
+
+@media only screen and (min-width: 768px) {
+}
+
+
+@media only screen and (min-width: 992px) {
+}
+
+
+@media only screen and (min-width: 1200px) {
+}
