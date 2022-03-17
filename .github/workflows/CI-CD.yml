@@ -24,4 +24,4 @@ jobs:
     - name: Run Tests
       run: npm test
     - name: Run Deploy Script
-    - run: npm run deploy
+      run: npm run deploy
