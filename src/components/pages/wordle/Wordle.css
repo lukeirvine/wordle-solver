@@ -92,7 +92,7 @@
     color: white;
     font-weight: bold;
     height: 58px;
-    flex: 1 1 0%;
+    flex: 2 1 0%;
     font-size: 14px;
     padding: 0px;
     /* margin-right: 6px; */
@@ -113,12 +113,12 @@
 }
 
 .w-kb-spacer {
-    flex: 0.5 1 0%;
+    flex: 1 1 0%;
     background-color: rgba(0, 174, 255, 0.979);
 }
 
 .w-kb-one-point-five {
-    flex: 1.5 1 0%;
+    flex: 3 1 0%;
     font-size: 12px;
 }
 
