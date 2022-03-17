@@ -68,15 +68,15 @@
 
 .w-kb {
     /* width: 500px; */
-    width: 320px;
-    /* width: 100%; */
+    /* width: 320px; */
+    width: 100%;
     padding-top: 0px;
     background-color: pink;
 }
 
 .w-kb-row {
     display: flex;
-    width: 320px;
+    /* width: 320px; */
     margin-bottom: 8px;
     gap: 6px;
     background-color: yellow;
@@ -114,7 +114,7 @@
 
 .w-kb-spacer {
     flex: 0.5 1 0%;
-    background-color: rgba(255, 255, 255, 0);
+    background-color: rgba(0, 174, 255, 0.979);
 }
 
 .w-kb-one-point-five {
