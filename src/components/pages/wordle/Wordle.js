@@ -277,7 +277,7 @@ const Wordle = () => {
             // handle when a duplicate letter is gray
             const countNoColors = getLetterCount(word);
             const countWithColors = getLetterCount(word, grid.colors[i]);
-            console.log(word + " counts", countNoColors, countWithColors)
+            // console.log(word + " counts", countNoColors, countWithColors)
             for (const letter of Object.keys(countNoColors)) {
                 if ((countNoColors[letter] > countWithColors[letter] || countWithColors[letter] === undefined) && countWithColors[letter] > 0) {
                     // then we know there's a finite number of letter
@@ -285,7 +285,7 @@ const Wordle = () => {
                 }
             }
         }
-        console.log('sets', sets)
+        // console.log('sets', sets)
         return sets;
     }
 
