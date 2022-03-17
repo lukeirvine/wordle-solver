@@ -226,7 +226,6 @@ const Wordle = () => {
     const handleSubmit = e => {
         e.preventDefault();
         let sets = createSets();
-        console.log(sets);
         let results = [];
         // loop through wordle words
         words.forEach(word => {
@@ -268,11 +267,12 @@ const Wordle = () => {
                 }
             }
             if (works) {
-                console.log("pushing " + word)
                 results.push(word);
             }
         })
-        console.log(results);
+        results.sort((a, b) => {
+            return ('' + a).localeCompare(b);
+        });
         setPossible(results);
     }
 
