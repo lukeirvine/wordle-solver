@@ -13,6 +13,8 @@
     text-align: center;
     font-family: 'Roboto Slab', serif;
     font-weight: bold;
+    padding: 0px;
+    margin: 0px;
 }
 
 .w-subtitle {
