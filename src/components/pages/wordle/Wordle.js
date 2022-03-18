@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import NavBar from './../../nav-bar/NavBar';
 import { Form, Button } from 'react-bootstrap';
 import { capitalize } from '../../../resources/Functions';
-import { words } from './wordle-words';
 import './Wordle.css';
 
-const tileColors = {
+export const tileColors = {
     0: 'rgb(58, 58, 60)',
     1: 'rgb(181, 159, 58)',
     2: 'rgb(83, 141, 78)',
@@ -63,7 +62,8 @@ const keyboard = [
     ['enter', 'z', 'x', 'c', 'v', 'b', 'n', 'm', <i className="bi-backspace w-kb-backspace" />]
 ]
 
-const Wordle = () => {
+const Wordle = props => {
+    const { words } = props;
     const [grid, setGrid] = useState(blankGrid)
     const [valid, setValid] = useState(false);
     const [possible, setPossible] = useState([]);
@@ -368,8 +368,10 @@ const Wordle = () => {
                         <div className="w-grid">
                             {Object.values(grid.letters).map((row, i) => {
                                 return Object.values(row).map((tile, j) => (
-                                    <div
+                                    <button
                                         key={j}
+                                        data-testid={"tile-" + i + "-" + j}
+                                        type="button"
                                         className="w-tile"
                                         style={{
                                             backgroundColor: grid.letters[i][j] === '' ? 'white' : tileColors[grid.colors[i][j]],
@@ -380,7 +382,7 @@ const Wordle = () => {
                                         <div
                                             className="w-tile-letter"
                                         >{capitalize(tile)}</div>
-                                    </div>
+                                    </button>
                                 ))
                             })}
                         </div>
@@ -391,6 +393,7 @@ const Wordle = () => {
                                 {row.map((letter, j) => (
                                     <button 
                                         key={j}
+                                        data-testid={/^\w+$/.test(letter) ? 'key-' + letter : 'key-backspace'}
                                         id={/^\w+$/.test(letter) ? 'key-' + letter : 'key-backspace'}
                                         type={letter === 'enter' ? 'submit' : 'button'}
                                         disabled={letter === 'enter' && !valid}
@@ -415,10 +418,10 @@ const Wordle = () => {
                 </Form>
                 {possible.length > 0 && <div className="w-results w-half-content">
                     <h2 className="w-subtitle">Potential Solutions</h2>
-                    <div className="w-results-words">
-                        {possible.map(word => (
-                            <>{word}, </>
-                        ))}
+                    <div data-testid="w-results-words" className="w-results-words">
+                        {possible.map(word => {
+                            return word + ', ';
+                        })}
                     </div>
                 </div>}
             </div>
