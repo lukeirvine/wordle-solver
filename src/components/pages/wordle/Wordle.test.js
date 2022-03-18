@@ -41,11 +41,13 @@ const getResults = () => {
 }
 
 beforeEach(async () => {
-    render(<Wordle words={testWords} />);
-    await screen.findByRole('heading', {name: /wordle solver/i})
+    
 })
 
 it('displays letters typed by clicking displayed keyboard', async () => {
+    render(<Wordle words={testWords} />);
+    await screen.findByRole('heading', {name: /wordle solver/i})
+
     let typeLetters = [
         'ocean'
     ];
@@ -53,6 +55,9 @@ it('displays letters typed by clicking displayed keyboard', async () => {
 })
 
 it('changes colors of tiles when clicked', async () => {
+    render(<Wordle words={testWords} />);
+    await screen.findByRole('heading', {name: /wordle solver/i})
+
     let typeLetters = [
         'ocean'
     ];
@@ -67,6 +72,9 @@ it('changes colors of tiles when clicked', async () => {
 })
 
 it('outputs full dataset with ocean entered and yellow e', async () => {
+    render(<Wordle words={testWords} />);
+    await screen.findByRole('heading', {name: /wordle solver/i})
+
     let typeLetters = [
         'ocean'
     ];
@@ -82,6 +90,9 @@ it('outputs full dataset with ocean entered and yellow e', async () => {
 })
 
 it('works without duplicate letters', async () => {
+    render(<Wordle words={testWords} />);
+    await screen.findByRole('heading', {name: /wordle solver/i})
+
     let typeLetters = [
         'ocean',
         'grief',
@@ -105,6 +116,9 @@ it('works without duplicate letters', async () => {
 })
 
 it('selects words that have a correct number of duplicates', async () => {
+    render(<Wordle words={testWords} />);
+    await screen.findByRole('heading', {name: /wordle solver/i})
+
     let typeLetters = [
         'ocean',
         'fewer',
@@ -126,6 +140,9 @@ it('selects words that have a correct number of duplicates', async () => {
 })
 
 it('works with a third duplicate that isn\'t selected', async () => {
+    render(<Wordle words={testWords} />);
+    await screen.findByRole('heading', {name: /wordle solver/i})
+
     let typeLetters = [
         'ocean',
         'fewer',
@@ -147,6 +164,9 @@ it('works with a third duplicate that isn\'t selected', async () => {
 })
 
 it('fixes known bug', async () => {
+    render(<Wordle words={words} />);
+    await screen.findByRole('heading', {name: /wordle solver/i})
+
     let typeLetters = [
         'opera',
         'women',
@@ -162,6 +182,7 @@ it('fixes known bug', async () => {
     // press enter
     userEvent.click(screen.getByTestId('key-enter'));
     // compare results to actual
+    console.log(getResults());
     expect(getResults()).toEqual([
         'movie'
     ]);

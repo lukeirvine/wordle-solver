@@ -11,12 +11,15 @@
 
 .w-title {
     text-align: center;
+    font-family: 'Roboto Slab', serif;
+    font-weight: bold;
 }
 
 .w-subtitle {
     text-align: left;
     width: 100%;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    font-family: 'Roboto Slab', serif;
 }
 
 .w-entry-directions {

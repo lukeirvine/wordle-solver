@@ -15,6 +15,8 @@ const NavBar = () => {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link as={Link} to="/">Wordle Solver</Nav.Link>
+                        <Nav.Link target="_blank" href="https://lukeirvine.github.io/portfolio/#/apps">Apps Portfolio</Nav.Link>
+                        <Nav.Link target="_blank" href="https://lukeirvine.github.io/music">Music Portfolio</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
