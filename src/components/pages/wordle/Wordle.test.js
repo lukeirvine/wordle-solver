@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitForElementToBeRemoved } from './../../../test-utils';
 import userEvent from '@testing-library/user-event';
-import { testWords } from './../../../wordle-words';
+import { words, testWords } from './../../../wordle-words';
 import Wordle, { tileColors } from './Wordle';
 
 const typeKeys = (typeLetters) => {
@@ -28,7 +28,12 @@ const clickTiles = (colorClicks) => {
 
 const getResults = () => {
     // get result words into an array
-    let results = screen.getByTestId('w-results-words').innerHTML;
+    let results = ''
+    try {
+        results = screen.getByTestId('w-results-words').innerHTML;
+    } catch (error) {
+        // There are no result words
+    }
     let resultArr = results.split(/, /);
     // remove empty element at end of array
     resultArr.pop();
@@ -141,3 +146,23 @@ it('works with a third duplicate that isn\'t selected', async () => {
     ]);
 })
 
+it('fixes known bug', async () => {
+    let typeLetters = [
+        'opera',
+        'women',
+        'moose'
+    ];
+    let colorClicks = [
+        [1, 0, 1, 0, 0],
+        [0, 2, 1, 1, 0],
+        [2, 2, 0, 0, 2]
+    ]
+    typeKeys(typeLetters);
+    clickTiles(colorClicks);
+    // press enter
+    userEvent.click(screen.getByTestId('key-enter'));
+    // compare results to actual
+    expect(getResults()).toEqual([
+        'movie'
+    ]);
+})
