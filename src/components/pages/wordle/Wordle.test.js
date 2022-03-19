@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, waitForElementToBeRemoved } from './../../../test-utils';
 import userEvent from '@testing-library/user-event';
-import { words, testWords } from './../../../wordle-words';
+import { words, testWords } from './../../../resources/word-data';
 import Wordle, { tileColors } from './Wordle';
 
 const typeKeys = (typeLetters) => {

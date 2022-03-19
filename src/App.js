@@ -2,7 +2,7 @@ import React from 'react';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 import Wordle from './components/pages/wordle/Wordle';
 import Error from "./components/pages/error/Error";
-import { words } from './wordle-words';
+import { words } from './resources/word-data';
 import './App.css';
 
 const App = () => {
