@@ -1,0 +1,83 @@
+.w-kb {
+    /* width: 500px; */
+    /* width: 320px; */
+    width: 100%;
+    padding-top: 0px;
+}
+
+.w-kb-row {
+    display: flex;
+    /* width: 320px; */
+    margin-bottom: 8px;
+    gap: 6px;
+}
+
+.w-kb-row button {
+    border-style: none;
+}
+
+.w-kb-letter {
+    background-color: rgb(129, 129, 129);
+    border-radius: 4px;
+    color: white;
+    font-weight: bold;
+    height: 58px;
+    flex: 2 1 0%;
+    font-size: 14px;
+    padding: 0px;
+    /* margin-right: 6px; */
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    user-select: none;
+    /* transition: all 0.2s ease-in-out; */
+}
+
+.w-kb-letter:disabled {
+    background-color: rgb(172, 172, 172);
+}
+
+.w-kb-letter:active {
+    background-color: rgb(100, 100, 100);
+    box-shadow: 0 0 5px gray;
+}
+
+.w-kb-spacer {
+    flex: 1 1 0%;
+    background-color: rgba(0, 174, 255, 0);
+    padding: 0px;
+    margin: 0px;
+}
+
+.w-kb-one-point-five {
+    flex: 3 1 0%;
+    font-size: 12px;
+}
+
+.w-kb-backspace {
+    font-size: 20px;
+}
+
+/* Screen size specs */
+
+@media only screen and (max-width: 576px) {
+}
+
+
+@media only screen and (min-width: 576px) {
+    .w-kb {
+        width: 500px;
+    }
+}
+
+
+@media only screen and (min-width: 767px) {
+}
+
+
+@media only screen and (min-width: 992px) {
+}
+
+
+@media only screen and (min-width: 1200px) {
+}

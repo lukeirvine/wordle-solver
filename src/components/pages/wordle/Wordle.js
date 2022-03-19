@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import NavBar from './../../nav-bar/NavBar';
 import { Form, Button } from 'react-bootstrap';
-import { capitalize } from '../../../resources/Functions';
+import TileGrid from './components/TileGrid';
+import Keyboard from './components/Keyboard';
 import './Wordle.css';
 
 export const tileColors = {
@@ -9,29 +10,6 @@ export const tileColors = {
     1: 'rgb(181, 159, 58)',
     2: 'rgb(83, 141, 78)',
 }
-
-// const debugGrid = {
-//     letters: {
-//         0: {0: 'o', 1: 'c', 2: 'e', 3: 'a', 4: 'n'},
-//         1: {0: 'p', 1: 'e', 2: 'a', 3: 'c', 4: 'e'},
-//         2: {0: 't', 1: 'e', 2: 'r', 3: 'm', 4: 's'},
-//         3: {0: 'c', 1: 'a', 2: 't', 3: 'c', 4: 'h'},
-//         4: {0: '', 1: '', 2: '', 3: '', 4: ''},
-//         5: {0: '', 1: '', 2: '', 3: '', 4: ''}
-//     },
-//     colors: {
-//         0: {0: 0, 1: 1, 2: 1, 3: 1, 4: 0},
-//         1: {0: 0, 1: 1, 2: 1, 3: 1, 4: 0},
-//         2: {0: 1, 1: 1, 2: 1, 3: 0, 4: 0},
-//         3: {0: 2, 1: 2, 2: 2, 3: 0, 4: 0},
-//         4: {0: 0, 1: 0, 2: 0, 3: 0, 4: 0},
-//         5: {0: 0, 1: 0, 2: 0, 3: 0, 4: 0}
-//     },
-//     index: {
-//         i: 4,
-//         j: 0
-//     }
-// }
 
 const blankGrid = {
     letters: {
@@ -166,6 +144,7 @@ const Wordle = props => {
             }
         }
     }
+
     /*
         Return Example:
         {
@@ -358,54 +337,18 @@ const Wordle = props => {
             <h1 className="w-title">Wordle Solver</h1>
             <div className="w-content">
                 <Form className="w-grid-form w-half-content" onSubmit={handleSubmit}>
-                    <div className="w-grid-container">
-                        <h2 className='w-subtitle'>Entry</h2>
-                        <p className="w-entry-directions">
-                            Directions: Enter the words you tried on Wordle, click the tiles repeatedly to 
-                            turn them yellow or green, and then click enter to see possible next words 
-                            <span className="w-down-below-text"> down below</span>.
-                        </p>
-                        <div className="w-grid">
-                            {Object.values(grid.letters).map((row, i) => {
-                                return Object.values(row).map((tile, j) => (
-                                    <button
-                                        key={j}
-                                        data-testid={"tile-" + i + "-" + j}
-                                        type="button"
-                                        className="w-tile"
-                                        style={{
-                                            backgroundColor: grid.letters[i][j] === '' ? 'white' : tileColors[grid.colors[i][j]],
-                                            cursor: i <= grid.index.i ? 'pointer' : ''
-                                        }}
-                                        onClick={handleTileClick(i, j)}
-                                    >
-                                        <div
-                                            className="w-tile-letter"
-                                        >{capitalize(tile)}</div>
-                                    </button>
-                                ))
-                            })}
-                        </div>
-                    </div>
-                    <div className="w-kb">
-                        {keyboard.map((row, i) => (
-                            <div key={i} className="w-kb-row">
-                                {row.map((letter, j) => (
-                                    <button 
-                                        key={j}
-                                        data-testid={/^\w+$/.test(letter) ? 'key-' + letter : 'key-backspace'}
-                                        id={/^\w+$/.test(letter) ? 'key-' + letter : 'key-backspace'}
-                                        type={letter === 'enter' ? 'submit' : 'button'}
-                                        disabled={letter === 'enter' && !valid}
-                                        onClick={/^\w$/.test(letter) ? () => handleNewLetter(letter) : letter === 'enter' ? handleSubmit : () => handleBackSpace()}
-                                        className={letter === '' ? 'w-kb-spacer' : 'w-kb-letter' + (/^\w$/.test(letter) ? '' : ' w-kb-one-point-five')}
-                                    >
-                                        {typeof letter === 'string' ? letter.toUpperCase() : letter}
-                                    </button>
-                                ))}
-                            </div>
-                        ))}
-                    </div>
+                    <TileGrid 
+                        grid={grid} 
+                        handleTileClick={handleTileClick} 
+                        tileColors={tileColors}
+                    />
+                    <Keyboard 
+                        keyboard={keyboard}
+                        valid={valid}
+                        handleNewLetter={handleNewLetter}
+                        handleSubmit={handleSubmit}
+                        handleBackSpace={handleBackSpace}
+                    />
                     <Button
                         className="w-reset-btn"
                         variant="dark"

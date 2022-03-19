@@ -1,0 +1,69 @@
+.tg-grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tg-grid {
+    display: grid;
+    grid-template: repeat(6, 1fr) / repeat(5, 1fr);
+    gap: 5px;
+    width: 250px;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+.tg-tile {
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(173, 173, 173);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    margin: 0px;
+}
+
+.tg-tile-letter {
+    font-size: 25px;
+    font-weight: bold;
+    user-select: none;
+    color: white;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* Screen size specs */
+
+@media only screen and (max-width: 576px) {
+}
+
+
+@media only screen and (min-width: 576px) {
+    .tg-grid-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .tg-grid {
+        width: 350px;
+        height: 420px;
+    }
+
+    .tg-tile-letter {
+        font-size: 32px;
+    }
+}
+
+
+@media only screen and (min-width: 767px) {
+}
+
+
+@media only screen and (min-width: 992px) {
+}
+
+
+@media only screen and (min-width: 1200px) {
+}
