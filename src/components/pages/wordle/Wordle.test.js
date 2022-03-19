@@ -182,8 +182,48 @@ it('fixes known bug', async () => {
     // press enter
     userEvent.click(screen.getByTestId('key-enter'));
     // compare results to actual
-    console.log(getResults());
     expect(getResults()).toEqual([
         'movie'
+    ]);
+})
+
+it('sorts results properly', async () => {
+    render(<Wordle words={words} />);
+    await screen.findByRole('heading', {name: /wordle solver/i})
+
+    let typeLetters = [
+        'ocean',
+        'serum'
+    ];
+    let colorClicks = [
+        [0, 0, 1, 0, 0],
+        [0, 2, 0, 0, 0],
+    ]
+    typeKeys(typeLetters);
+    clickTiles(colorClicks);
+    // press enter
+    userEvent.click(screen.getByTestId('key-enter'));
+    expect(getResults()).toEqual([
+        'befit', 'beget', 'belie', 'belle', 'belly', 'betel', 'bevel', 
+        'bezel', 'debit', 'deity', 'delve', 'depth', 'devil', 'fetid', 
+        'hedge', 'hefty', 'helix', 'jelly', 'jetty', 'jewel', 'ledge', 
+        'lefty', 'leggy', 'level', 'petty', 'teddy', 'tepee', 'tepid', 
+        'wedge', 'weigh',
+    ]);
+    userEvent.selectOptions(screen.getByTestId('w-sort-select'), 'ltrFreq')
+    expect(getResults()).toEqual([
+        'tepee', 'betel', 'beget', 'hedge', 'belie', 'ledge', 'fetid', 
+        'deity', 'petty', 'tepid', 'delve', 'belle', 'debit', 'depth', 
+        'level', 'wedge', 'jetty', 'teddy', 'befit', 'hefty', 'jewel', 
+        'bevel', 'bezel', 'lefty', 'weigh', 'helix', 'devil', 'belly', 
+        'jelly', 'leggy',
+    ]);
+    userEvent.selectOptions(screen.getByTestId('w-sort-select'), 'uniqueLtrFreq')
+    expect(getResults()).toEqual([
+        'fetid', 'deity', 'tepid', 'debit', 'depth', 'befit', 'hefty', 
+        'lefty', 'weigh', 'helix', 'devil', 'teddy', 'betel', 'petty', 
+        'beget', 'hedge', 'belie', 'jetty', 'tepee', 'ledge', 'delve', 
+        'wedge', 'leggy', 'belly', 'jewel', 'bevel', 'jelly', 'bezel', 
+        'belle', 'level',
     ]);
 })

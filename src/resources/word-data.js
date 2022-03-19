@@ -10,6 +10,35 @@ export const debugWords = [
   "plash",
 ];
 
+export const letterFreq = {
+  a: 8.2,
+  b: 1.5,
+  c: 2.7, 
+  d: 4.7,
+  e: 13,
+  f: 2.2,
+  g: 2,
+  h: 6.2,
+  i: 6.9,
+  j: 0.14,
+  k: 0.78,
+  l: 4.1,
+  m: 2.7,
+  n: 6.7,
+  o: 7.8,
+  p: 1.9,
+  q: 0.11,
+  r: 5.9,
+  s: 6.2,
+  t: 9.6,
+  u: 2.7,
+  v: 0.97,
+  w: 2.4,
+  x: 0.15,
+  y: 2,
+  z: 0.078
+}
+
 export const testWords = [
   'befit', 'beget', 'belie', 'belle', 'belly', 'beret', 'berry', 
   'berth', 'beset', 'betel', 'bevel', 'bezel', 'bible', 'bilge', 

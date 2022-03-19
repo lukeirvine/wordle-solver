@@ -3,6 +3,7 @@ import NavBar from './../../nav-bar/NavBar';
 import { Form, Button } from 'react-bootstrap';
 import TileGrid from './components/TileGrid';
 import Keyboard from './components/Keyboard';
+import { letterFreq } from '../../../resources/word-data';
 import './Wordle.css';
 
 export const tileColors = {
@@ -45,6 +46,7 @@ const Wordle = props => {
     const [grid, setGrid] = useState(blankGrid)
     const [valid, setValid] = useState(false);
     const [possible, setPossible] = useState([]);
+    const [sortAlg, setSortAlg] = useState('alph');
 
     const handleNewLetter = letter => {
         setGrid(prev => {
@@ -175,6 +177,42 @@ const Wordle = props => {
             }
         })
         return count;
+    }
+
+    const sortAlphabetical = (a, b) => {
+        return ('' + a).localeCompare(b);
+    }
+
+    const sortLetterFreq = (a, b) => {
+        let aVal = 0;
+        let bVal = 0;
+        for (const l of a) {
+            aVal += letterFreq[l];
+        }
+        for (const l of b) {
+            bVal += letterFreq[l];
+        }
+        return bVal - aVal;
+    }
+
+    const sortUniqueLetterFreq = (a, b) => {
+        let aLetters = Object.keys(getLetterCount(a));
+        let bLetters = Object.keys(getLetterCount(b));
+        let aVal = 0;
+        let bVal = 0;
+        for (const l of aLetters) {
+            aVal += letterFreq[l];
+        }
+        for (const l of bLetters) {
+            bVal += letterFreq[l];
+        }
+        return bVal - aVal;
+    }
+
+    const sortFuncList = {
+        alph: sortAlphabetical,
+        ltrFreq: sortLetterFreq,
+        uniqueLtrFreq: sortUniqueLetterFreq
     }
 
     const createSets = () => {
@@ -325,10 +363,16 @@ const Wordle = props => {
                 results.push(word);
             }
         })
-        results.sort((a, b) => {
-            return ('' + a).localeCompare(b);
-        });
+        results.sort(sortAlphabetical);
         setPossible(results);
+    }
+
+    const handleSortChange = e => {
+        setSortAlg(e.target.value)
+        setPossible(prev => {
+            prev.sort(sortFuncList[e.target.value]);
+            return prev;
+        })
     }
 
     return <>
@@ -361,6 +405,21 @@ const Wordle = props => {
                 </Form>
                 {possible.length > 0 && <div className="w-results w-half-content">
                     <h2 className="w-subtitle">Potential Solutions</h2>
+                    <div className="w-sort-select-container">
+                        <div className="w-sort-heading">Sort by: </div>
+                        <Form.Select
+                            className="w-sort-select"
+                            data-testid="w-sort-select"
+                            size="sm"
+                            aria-label="Default select example"
+                            value={sortAlg}
+                            onChange={handleSortChange}
+                        >
+                            <option value="alph">Alphabetical</option>
+                            <option value="ltrFreq">Letter Frequency</option>
+                            <option value="uniqueLtrFreq">Unique Letter Frequency</option>
+                        </Form.Select>
+                    </div>
                     <div data-testid="w-results-words" className="w-results-words">
                         {possible.map(word => {
                             return word + ', ';
