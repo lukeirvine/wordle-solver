@@ -363,7 +363,7 @@ const Wordle = props => {
                 results.push(word);
             }
         })
-        results.sort(sortAlphabetical);
+        results.sort(sortFuncList[sortAlg]);
         setPossible(results);
     }
 
