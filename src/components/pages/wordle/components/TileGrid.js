@@ -17,7 +17,7 @@ const TileGrid = props => {
                 {Object.values(grid.letters).map((row, i) => {
                     return Object.values(row).map((tile, j) => {
                         const clickable = (i <= grid.index.i && j < grid.index.j) || i < grid.index.i;
-                        return <div
+                        return <button
                             className="tg-tile"
                             key={j}
                             data-testid={"tile-" + i + "-" + j}
@@ -31,7 +31,7 @@ const TileGrid = props => {
                             <div
                                 className="tg-tile-letter"
                             >{capitalize(tile)}</div>
-                        </div>
+                        </button>
                     })
                 })}
             </div>
