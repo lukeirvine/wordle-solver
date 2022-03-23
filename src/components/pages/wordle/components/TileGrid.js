@@ -15,23 +15,24 @@ const TileGrid = props => {
             </p>
             <div className="tg-grid">
                 {Object.values(grid.letters).map((row, i) => {
-                    return Object.values(row).map((tile, j) => (
-                        <button
+                    return Object.values(row).map((tile, j) => {
+                        const clickable = (i <= grid.index.i && j < grid.index.j) || i < grid.index.i;
+                        return <div
+                            className="tg-tile"
                             key={j}
                             data-testid={"tile-" + i + "-" + j}
                             type="button"
-                            className="tg-tile"
                             style={{
                                 backgroundColor: grid.letters[i][j] === '' ? 'white' : tileColors[grid.colors[i][j]],
-                                cursor: i <= grid.index.i ? 'pointer' : ''
+                                cursor: clickable ? 'pointer' : 'default'
                             }}
-                            onClick={handleTileClick(i, j)}
+                            onClick={clickable ? handleTileClick(i, j) : null}
                         >
                             <div
                                 className="tg-tile-letter"
                             >{capitalize(tile)}</div>
-                        </button>
-                    ))
+                        </div>
+                    })
                 })}
             </div>
         </div>

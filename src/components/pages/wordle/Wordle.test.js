@@ -188,7 +188,7 @@ it('fixes known bug', async () => {
     ]);
 })
 
-it('sorts results properly', async () => {
+xit('sorts results properly', async () => {
     render(<Wordle words={words} />);
     await screen.findByRole('heading', {name: /wordle solver/i})
 
